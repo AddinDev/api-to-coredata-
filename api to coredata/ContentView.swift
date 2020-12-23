@@ -24,7 +24,8 @@ struct ContentView: View {
             }
             .navigationBarItems(trailing: Button("test") { print(hadits)})
             .onAppear {
-                    net.getHadits()
+                net.getHadits()
+                DispatchQueue.global().asyncAfter(deadline: .now() + 0.5)  {
                     
                     for h in net.hadits {
                         let haditss = HaditsDB(context: self.moc)
@@ -33,6 +34,8 @@ struct ContentView: View {
                         haditss.nass = h.nass
                         haditss.terjemah = h.terjemah
                         try? self.moc.save()
+                    
+                }
                     
                 }
             }
@@ -67,8 +70,6 @@ class Networking: ObservableObject  {
                     let newHadits = Hadits(haditsId: String(i), nass: h.nass, terjemah: h.terjemah)
                     self.hadits.append(newHadits)
                     
-                    try? self.moc.save()
-                    print("to core data")
                     
                 }
             print("get hadits")
