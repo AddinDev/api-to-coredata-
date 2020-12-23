@@ -67,12 +67,6 @@ class Networking: ObservableObject  {
                     let newHadits = Hadits(haditsId: String(i), nass: h.nass, terjemah: h.terjemah)
                     self.hadits.append(newHadits)
                     
-                    let haditss = HaditsDB(context: self.moc)
-                    haditss.id = UUID()
-                    haditss.haditsId = String(i)
-                    haditss.nass = h.nass
-                    haditss.terjemah = h.terjemah
-                    
                     try? self.moc.save()
                     print("to core data")
                     
@@ -88,19 +82,5 @@ class Networking: ObservableObject  {
     }
     
 }
-
-//    func toCoreData(hadits: [Hadits]) {
-//        for h in hadits {
-//            let hadits = HaditsDB(context: self.moc)
-//            hadits.id = h.id
-//            hadits.haditsId = h.haditsId
-//            hadits.nass = h.nass
-//            hadits.terjemah = h.terjemah
-//
-//            try? self.moc.save()
-//            print("to core data")
-//        }
-//
-//    }
 
 
